@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+user=root
+host=65.49.195.225
+port=29771
+
+src=`pwd`"/"
+des=/home/wwwroot/alvinhtml/
+now=`date +"%Y-%m-%d %H:%M:%S"`
+
+echo "将 $src 目录下的文件同步到 $host:$des 目录下"
+
+rsync -vzrc -e 'ssh -p $port' --delete  --exclude ".git" --exclude ".env" --exclude ".circleci" --exclude ".manual" --exclude "frontent" $src $user@$host:$des
+
+ssh $user@$host "sudo chown -R www:www $des"
+
+ssh $user@$host "chmod -R 775 $des/bootstrap/cache && chmod -R 775 $des/storage && cd $des && pwd && ls -al"
+
+ssh $user@$host php artisan config:cache
+ssh $user@$host php artisan route:cache
+
+
+echo "$now update $host $des code"

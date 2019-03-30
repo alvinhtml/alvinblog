@@ -42,7 +42,7 @@
     <script>
         window.csrf_token = "{{ $csrf_token }}";
     </script>
-<link href="http://blog.xuehtml.com/css/website.min.css?0d932003ddc55c500f69" rel="stylesheet"></head>
+</head>
 
 <body>
     <header class="header" style="background-image:url(/images/background.jpg)">
@@ -78,5 +78,5 @@
             <div class="Copyright">© 2018 你爱谁如鲸向海</div>
         </div>
     </footer>
-<script type="text/javascript" src="http://blog.xuehtml.com/js/website.js?0d932003ddc55c500f69"></script></body>
+</body>
 </html>

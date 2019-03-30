@@ -6,7 +6,11 @@
     "scripts": {
         "dev": "webpack-dev-server",
         "lint": "npx eslint frontent/**/*.js src/**/*.jsx",
-        "build": "webpack"
+        "build": "webpack --mode=production",
+        "manual:prepare": "gitbook install manual",
+        "manual:build": "npm run manual:prepare && gitbook build manual public/manual",
+        "manual:watch": "npm run manual:prepare && gitbook serve manual",
+        "manual:pdf": "gitbook pdf"
     },
     "repository": {
         "type": "git",

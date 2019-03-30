@@ -18,8 +18,8 @@
 
     <title>管理后台</title>
 
-<link href="http://blog.xuehtml.com/css/style.min.css?9050e5762c5ab0d8d972" rel="stylesheet"></head>
+<link href="http://blog.xuehtml.com/css/bundle.min.css?0d932003ddc55c500f69" rel="stylesheet"></head>
 <body>
     <div id="webApplication"></div>
-<script type="text/javascript" src="http://blog.xuehtml.com/js/bundle.js?9050e5762c5ab0d8d972"></script></body>
+<script type="text/javascript" src="http://blog.xuehtml.com/js/bundle.js?0d932003ddc55c500f69"></script></body>
 </html>

@@ -35,7 +35,8 @@ module.exports = {
     output: {
         filename: 'js/[name].js',  //打包后的文件名
         path: path.resolve(__dirname, './build'), //路径必须是绝对路径
-        publicPath: 'http://localhost:8080/'
+        publicPath: 'http://blog.xuehtml.com/'
+        // publicPath: 'http://localhost:8080/'
     },
 
     resolve: {
@@ -119,16 +120,23 @@ module.exports = {
             chunks: ['bundle']
         }),
 
+        new HtmlWebpackPlugin({
+            template: './frontent/website.php',
+            filename: 'layout.blade.php',
+            hash: true,
+            chunks: ['website']
+        }),
+
         new MiniCssExtractPlugin({
-            filename: 'css/style.min.css'
+            filename: 'css/[name].min.css'
         }),
 
         new CopyWebpackPlugin([{
-            from: path.resolve(__dirname, 'build/js/*'),
+            from: path.resolve(__dirname, 'build/js/*.js'),
             to: path.resolve(__dirname, 'public/js/'),
             flatten: true
         }, {
-            from: path.resolve(__dirname, 'build/css/*'),
+            from: path.resolve(__dirname, 'build/css/*.css'),
             to: path.resolve(__dirname, 'public/css/'),
             flatten: true
         }, {
@@ -138,6 +146,9 @@ module.exports = {
         }, {
             from: path.resolve(__dirname, 'build/index.blade.php'),
             to: path.resolve(__dirname, 'resources/views/admin/index.blade.php')
+        }, {
+            from: path.resolve(__dirname, 'build/layout.blade.php'),
+            to: path.resolve(__dirname, 'resources/views/common/layout.blade.php')
         }]),
 
         new webpack.DefinePlugin({

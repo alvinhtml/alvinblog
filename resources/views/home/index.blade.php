@@ -23,9 +23,9 @@
         <div class="side-bar">
         	<div class="bar-box">
         		<h3 class="bar-head">Me</h3>
-        		<div class="me-bg"><img src="/public/images/banner.jpg"></div>
+        		<div class="me-bg"><img src="/images/banner.jpg"></div>
         		<div class="me-body">
-        			<div class="me-author-img"><img src="/public/images/photo.jpg"></div>
+        			<div class="me-author-img"><img src="/images/photo.jpg"></div>
         			<div class="me-author-bio">
         				<h3>你爱谁如鲸向海</h3>
         				<div class="muted">生当如夏花 只为绚烂一瞬</div>

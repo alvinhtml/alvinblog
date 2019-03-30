@@ -16,9 +16,25 @@
 // });
 
 
+
+Route::get('/home', 'WebController@index');
+Route::get('/article', 'WebController@articles');
+Route::get('/article/list', 'WebController@articles');
+Route::get('/article/id/{id}', 'WebController@article');
+Route::post('/comment/add', 'WebController@addComment');
+Route::get('/classify', 'WebController@classifyList');
+Route::get('/classify/{id}', 'WebController@classify');
+Route::get('/favor/article_id/{id}', 'WebController@articleFavor');
+Route::get('/favor/comment_id/{id}', 'WebController@commentFavor');
+
+
+
 Route::get('/admin', 'HomeController@index');
 Route::get('/admin/login', 'AuthController@showLogin')->name('admin.login');
 Route::get('/{urls}', 'HomeController@index')->where('urls','(?!api/).+');
+
+
+
 
 
 /*

@@ -4,9 +4,9 @@ import {render} from 'react-dom'
 import {Provider} from 'react-redux'
 
 //引入样式文件
+import './css/simple-line-icons.css'
 import './less/miniui.less'
 import './less/manager.less'
-import './css/simple-line-icons.css'
 
 
 //引入Action创建函数

@@ -1,6 +1,10 @@
 //引入 Query
 import Query from './tools/query.js'
 
+import './css/simple-line-icons.css'
+import './less/miniui.less'
+import './less/website.less'
+
 (function (factory) {
     factory(window);
 }(function (Exports) {
