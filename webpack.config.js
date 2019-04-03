@@ -1,13 +1,13 @@
 //webpack
 
-let path = require('path')
-let webpack = require('webpack') //webpack 插件
-let HtmlWebpackPlugin = require('html-webpack-plugin')
-let MiniCssExtractPlugin = require('mini-css-extract-plugin') //抽离 css 文件，使用这个插件需要单独配置JS和CSS压缩
-let UglifyJsPlugin = require('uglifyjs-webpack-plugin') //压缩JS
-let OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin') //压缩CSS
-let CopyWebpackPlugin = require('copy-webpack-plugin') //webpack copy 插件
-
+const path = require('path')
+const webpack = require('webpack') //webpack 插件
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin') //抽离 css 文件，使用这个插件需要单独配置JS和CSS压缩
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin') //压缩JS
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin') //压缩CSS
+const CopyWebpackPlugin = require('copy-webpack-plugin') //webpack copy 插件
+const FileManagerPlugin = require('filemanager-webpack-plugin'); //webpack copy move delete mkdir archive
 
 module.exports = {
 
@@ -33,7 +33,7 @@ module.exports = {
     devtool: 'source-map', //源码映射，生成一个映射文件，帮我们定位源码文件
 
     output: {
-        filename: 'js/[name].js',  //打包后的文件名
+        filename: 'js/[name].js', //打包后的文件名
         path: path.resolve(__dirname, './build'), //路径必须是绝对路径
         publicPath: 'http://blog.xuehtml.com/'
         // publicPath: 'http://localhost:8080/'
@@ -66,7 +66,7 @@ module.exports = {
             },
             {
                 test: /\.js|jsx$/,
-                exclude: /node_modules/,  //排除
+                exclude: /node_modules/, //排除
                 use: {
                     loader: 'babel-loader',
                     options: { //用 babel-loader 转化 ES6-ES5
@@ -74,7 +74,7 @@ module.exports = {
                             '@babel/preset-env',
                             '@babel/preset-react'
                         ],
-                        plugins: [//这里可以配置一些小的插件
+                        plugins: [ //这里可以配置一些小的插件
                             '@babel/plugin-proposal-class-properties',
                             '@babel/plugin-syntax-dynamic-import'
                         ]
@@ -131,25 +131,32 @@ module.exports = {
             filename: 'css/[name].min.css'
         }),
 
-        new CopyWebpackPlugin([{
-            from: path.resolve(__dirname, 'build/js/*.js'),
-            to: path.resolve(__dirname, 'public/js/'),
-            flatten: true
-        }, {
-            from: path.resolve(__dirname, 'build/css/*.css'),
-            to: path.resolve(__dirname, 'public/css/'),
-            flatten: true
-        }, {
-            from: path.resolve(__dirname, 'build/images/*'),
-            to: path.resolve(__dirname, 'public/images/'),
-            flatten: true
-        }, {
-            from: path.resolve(__dirname, 'build/index.blade.php'),
-            to: path.resolve(__dirname, 'resources/views/admin/index.blade.php')
-        }, {
-            from: path.resolve(__dirname, 'build/layout.blade.php'),
-            to: path.resolve(__dirname, 'resources/views/common/layout.blade.php')
-        }]),
+        new FileManagerPlugin({
+            onStart: {
+              delete: [
+                path.resolve(__dirname, 'build')
+              ]
+            },
+            onEnd: {
+                copy: [{
+                    source: path.resolve(__dirname, 'build/js/*.js'),
+                    destination: path.resolve(__dirname, 'public/js/')
+                }, {
+                    source: path.resolve(__dirname, 'build/css/*.css'),
+                    destination: path.resolve(__dirname, 'public/css/')
+                }, {
+                    source: path.resolve(__dirname, 'build/images/*'),
+                    destination: path.resolve(__dirname, 'public/images/')
+                }],
+                move: [{
+                    source: path.resolve(__dirname, 'build/index.blade.php'),
+                    destination: path.resolve(__dirname, 'resources/views/admin/index.blade.php')
+                }, {
+                    source: path.resolve(__dirname, 'build/layout.blade.php'),
+                    destination: path.resolve(__dirname, 'resources/views/common/layout.blade.php')
+                }]
+            }
+        }),
 
         new webpack.DefinePlugin({
             DEV: JSON.stringify('dev'),
