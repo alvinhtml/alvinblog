@@ -4,10 +4,10 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: image: circleci/node:11
+      - image: circleci/node:11
 
     # working_directory 属性是用来定义steps 在哪个目录运行，默认为 ~/project/
-    # working_directory: ~/repo
+    working_directory: ~/myblog
 
     steps:
       - run: echo "Start building"
@@ -22,9 +22,8 @@ jobs:
 
             # 如果找不到完全匹配，则回退到使用最新缓存
             - v1-dependencies-
-
-      - run: npm
-      - run: npm run lint
+      - run: npm install
+      # - run: npm run lint
       - run: npm run build
       - run: npm run manual:build
 
@@ -34,15 +33,33 @@ jobs:
             - ~/.gitbook
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # - store_artifacts:
-      #     path: /tmp/artifacts/
+      - persist_to_workspace:
+          root: ~/myblog
+          paths: .
       - run: echo "End the build"
 
   deploy:
+    machine:
+      enabled: true
+    working_directory: ~/myblog
     steps:
       - run: echo "Start deployment"
+      - attach_workspace:
+          at: ~/myblog
       - run: pwd && ls -al
       - run:
           name: Deploy Over SSH
-          command: ./.circleci/deploy-master.sh
+          command: sh ./.circleci/deploy-master.sh
       - run: echo "====================部署完毕=============================="
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master

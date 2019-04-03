@@ -35,3 +35,12 @@ Laravel 框架的所有配置文件都放在 config 目录中。每个选项都�
 安装 Laravel 之后下一件应该做的事就是将应用程序的密钥设置为随机字符串。如果你是通过 Composer 或 Laravel 安装器安装的 Laravel，那这个密钥已经为你通过 php artisan key:generate 命令设置好了。
 
 通常来说，这个字符串长度为 32 个字符。密钥可以在 .env 环境文件中设置。前提是你要将 .env.example 文件重命名为 .env。如果应用程序密钥没有被设置，就不能确保你的用户会话和其他加密数据的安全！
+
+
+## 优化
+
+线上环境执行
+```bash
+php artisan config:cache
+php artisan route:cache
+```
