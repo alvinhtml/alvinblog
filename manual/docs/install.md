@@ -44,3 +44,7 @@ Laravel 框架的所有配置文件都放在 config 目录中。每个选项都�
 php artisan config:cache
 php artisan route:cache
 ```
+
+## open_basedir 配置
+fastcgi_param PHP_ADMIN_VALUE "open_basedir=$document_root/:/tmp/:/proc/";
+fastcgi_param PHP_ADMIN_VALUE "open_basedir=/home/wwwroot/:/tmp/:/proc/";

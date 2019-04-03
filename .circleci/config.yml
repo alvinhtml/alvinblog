@@ -10,7 +10,7 @@ jobs:
     working_directory: ~/myblog
 
     steps:
-      - run: echo "Start building"
+      - run: echo "Start build"
 
       # 将分支中的代码检出到 working_directory
       - checkout
@@ -33,6 +33,7 @@ jobs:
             - ~/.gitbook
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      # 用于持久保存临时文件以供工作流中的其他作业使用的特殊步骤
       - persist_to_workspace:
           root: ~/myblog
           paths: .
@@ -48,9 +49,9 @@ jobs:
           at: ~/myblog
       - run: pwd && ls -al
       - run:
-          name: Deploy Over SSH
-          command: sh ./.circleci/deploy-master.sh
-      - run: echo "====================部署完毕=============================="
+          name: Deploy over SSH
+          command: sh ./.circleci/deploy-master.sh ${HOST} ${PORT}
+      - run: echo "Deployed"
 
 workflows:
   version: 2
