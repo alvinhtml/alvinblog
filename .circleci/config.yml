@@ -24,7 +24,7 @@ jobs:
             - v1-dependencies-
       - run: npm install
       # - run: npm run lint
-      - run: npm run build
+      - run: npm run build:deploy
       - run: npm run manual:build
 
       - save_cache:

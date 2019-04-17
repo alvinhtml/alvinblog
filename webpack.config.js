@@ -1,13 +1,24 @@
 //webpack
 
-const path = require('path')
-const webpack = require('webpack') //webpack 插件
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin') //抽离 css 文件，使用这个插件需要单独配置JS和CSS压缩
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin') //压缩JS
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin') //压缩CSS
-const CopyWebpackPlugin = require('copy-webpack-plugin') //webpack copy 插件
+const path = require('path');
+const webpack = require('webpack'); //webpack 插件
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //抽离 css 文件，使用这个插件需要单独配置JS和CSS压缩
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); //压缩JS
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'); //压缩CSS
 const FileManagerPlugin = require('filemanager-webpack-plugin'); //webpack copy move delete mkdir archive
+
+const NODE_ENV = process.env.NODE_ENV;
+
+let MyPublicPath;
+
+if (NODE_ENV === 'dev') {
+    MyPublicPath = 'http://localhost:8080/';
+} else if (NODE_ENV === 'local') {
+    MyPublicPath = 'http://blog.xuehtml.com/';
+} else if (NODE_ENV === 'production') {
+    MyPublicPath = 'http://www.alvinhtml.com/';
+}
 
 module.exports = {
 
@@ -35,8 +46,7 @@ module.exports = {
     output: {
         filename: 'js/[name].js', //打包后的文件名
         path: path.resolve(__dirname, './build'), //路径必须是绝对路径
-        publicPath: 'http://blog.xuehtml.com/'
-        // publicPath: 'http://localhost:8080/'
+        publicPath: MyPublicPath
     },
 
     resolve: {

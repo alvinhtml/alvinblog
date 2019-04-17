@@ -10,7 +10,7 @@ now=`date +"%Y-%m-%d %H:%M:%S"`
 
 echo "将 $src 目录下的文件同步到 $host:$des 目录下"
 
-rsync -vzrc -e "ssh -p $port" --delete \
+rsync -zrc -e "ssh -p $port" \
 --exclude ".git" \
 --exclude "build" \
 --exclude "node_modules" \
@@ -24,8 +24,8 @@ ssh -p $port $user@$host "sudo chown -R www:www $des"
 
 ssh -p $port $user@$host "chmod -R 775 $des/bootstrap/cache && chmod -R 775 $des/storage && cd $des && pwd && ls -al"
 
-ssh -p $port $user@$host php artisan config:cache
-ssh -p $port $user@$host php artisan route:cache
+ssh -p $port $user@$host "php $des/artisan config:cache"
+ssh -p $port $user@$host "php $des/artisan route:cache"
 
 
 echo "$now update $host $des code"
