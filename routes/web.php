@@ -156,7 +156,7 @@ Route::get('/', 'WebController@index');
 //
 // //setting
 // Route::post('api/setting/list_configs', 'SettingController@list_configs');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+// 
+// Auth::routes();
+//
+// Route::get('/home', 'HomeController@index')->name('home');
